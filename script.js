@@ -80,6 +80,12 @@ const displayMovements = function (movements) {
 displayMovements(account1.movements);
 // console.log(containerMovements.innerHTML);
 
+//cal the total balance
+const calcDisplayBalamce = function (movements) {
+  const balance = movements.reduce((acc, mov) => acc + mov, 0);
+  labelBalance.textContent = `${balance} EUR `;
+};
+calcDisplayBalamce(account1.movements);
 //Computing username
 const createUserNames = function (accs) {
   accs.forEach(function (acc) {
