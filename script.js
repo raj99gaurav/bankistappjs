@@ -79,3 +79,19 @@ const displayMovements = function (movements) {
 
 displayMovements(account1.movements);
 // console.log(containerMovements.innerHTML);
+
+//Computing username
+const createUserNames = function (accs) {
+  accs.forEach(function (acc) {
+    acc.userName = acc.owner
+      .toLowerCase()
+      .split(" ")
+      .map((name) => name[0])
+      .join("");
+  });
+  // console.log(userName);
+  // return userName;
+};
+createUserNames(accounts);
+console.log(accounts);
+//as we dont want to create a new object so we will use foreach instead of map
