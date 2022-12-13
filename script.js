@@ -97,6 +97,17 @@ const calcDisplaySummary = function (movements) {
     .filter((mov) => mov < 0)
     .reduce((acc, mov) => acc + Math.abs(mov), 0);
   labelSumOut.textContent = `${out}€`;
+
+  //calculate interests on deposits where the interest on deposit is >=1
+  const interest = movements
+    .filter((deposit) => deposit > 0)
+    .map((deposit) => (deposit * 1.2) / 100)
+    .filter((int, i, arr) => {
+      console.log(arr);
+      return int >= 1;
+    })
+    .reduce((acc, int) => acc + int, 0);
+  labelSumInterest.textContent = `${interest}€`;
 };
 calcDisplaySummary(account1.movements);
 //Computing username
