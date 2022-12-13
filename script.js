@@ -81,11 +81,19 @@ displayMovements(account1.movements);
 // console.log(containerMovements.innerHTML);
 
 //cal the total balance
-const calcDisplayBalamce = function (movements) {
+const calcDisplayBalance = function (movements) {
   const balance = movements.reduce((acc, mov) => acc + mov, 0);
-  labelBalance.textContent = `${balance} EUR `;
+  labelBalance.textContent = `${balance}€`;
 };
-calcDisplayBalamce(account1.movements);
+calcDisplayBalance(account1.movements);
+
+const calcDisplaySummary = function (movements) {
+  const incomes = movements
+    .filter((mov) => mov > 0)
+    .reduce((acc, mov) => acc + mov, 0);
+  labelSumIn.textContent = `${incomes}€`;
+};
+calcDisplaySummary(account1.movements);
 //Computing username
 const createUserNames = function (accs) {
   accs.forEach(function (acc) {
@@ -98,6 +106,7 @@ const createUserNames = function (accs) {
   // console.log(userName);
   // return userName;
 };
+
 createUserNames(accounts);
 console.log(accounts);
 //as we dont want to create a new object so we will use foreach instead of map
