@@ -6,14 +6,14 @@
 
 // Data
 const account1 = {
-  owner: "Jonas Schmedtmann",
+  owner: "Raj Gaurav",
   movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
   interestRate: 1.2, // %
   pin: 1111,
 };
 
 const account2 = {
-  owner: "Jessica Davis",
+  owner: "Himanshu Singh",
   movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
   interestRate: 1.5,
   pin: 2222,
@@ -77,7 +77,6 @@ const displayMovements = function (movements) {
   });
 };
 
-displayMovements(account1.movements);
 // console.log(containerMovements.innerHTML);
 
 //cal the total balance
@@ -85,7 +84,6 @@ const calcDisplayBalance = function (movements) {
   const balance = movements.reduce((acc, mov) => acc + mov, 0);
   labelBalance.textContent = `${balance}€`;
 };
-calcDisplayBalance(account1.movements);
 
 const calcDisplaySummary = function (movements) {
   const incomes = movements
@@ -109,7 +107,7 @@ const calcDisplaySummary = function (movements) {
     .reduce((acc, int) => acc + int, 0);
   labelSumInterest.textContent = `${interest}€`;
 };
-calcDisplaySummary(account1.movements);
+
 //Computing username
 const createUserNames = function (accs) {
   accs.forEach(function (acc) {
@@ -124,5 +122,35 @@ const createUserNames = function (accs) {
 };
 
 createUserNames(accounts);
-console.log(accounts);
 //as we dont want to create a new object so we will use foreach instead of map
+
+//Event Handler
+let currentAccount;
+
+btnLogin.addEventListener("click", function (e) {
+  e.preventDefault(); //prevent form from submitting
+
+  currentAccount = accounts.find(
+    (acc) => acc.userName === inputLoginUsername.value
+  );
+  console.log(currentAccount);
+
+  //read pin property if the account exists
+  if (currentAccount?.pin === Number(inputLoginPin.value)) {
+    //Display UI and A welcome message
+    labelWelcome.textContent = `Welcome back , ${
+      currentAccount.owner.split(" ")[0]
+    }`;
+    containerApp.style.opacity = 100;
+
+    //clear input fields
+    inputLoginUsername.value = inputLoginPin.value = "";
+    inputLoginPin.blur();
+    //Display movements
+    displayMovements(currentAccount.movements);
+    ///Display balance
+    calcDisplayBalance(currentAccount.movements);
+    //Display Summary
+    calcDisplaySummary(currentAccount.movements);
+  }
+});
