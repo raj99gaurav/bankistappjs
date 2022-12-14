@@ -226,8 +226,10 @@ btnClose.addEventListener("click", function (e) {
   inputCloseUsername.value = inputClosePin.value = "";
 });
 
+let sorted = false;
 btnSort.addEventListener("click", function (e) {
   //sorting func
   e.preventDefault();
-  displayMovements(currentAccount.movements, true);
+  displayMovements(currentAccount.movements, !sorted);
+  sorted = !sorted;
 });
