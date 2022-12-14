@@ -124,6 +124,15 @@ const createUserNames = function (accs) {
 createUserNames(accounts);
 //as we dont want to create a new object so we will use foreach instead of map
 
+const updateUI = function (acc) {
+  //Display movements
+  displayMovements(acc.movements);
+  ///Display balance
+  calcDisplayBalance(acc);
+  //Display Summary
+  calcDisplaySummary(acc);
+};
+
 //Event Handler
 let currentAccount;
 
@@ -146,12 +155,8 @@ btnLogin.addEventListener("click", function (e) {
     //clear input fields
     inputLoginUsername.value = inputLoginPin.value = "";
     inputLoginPin.blur();
-    //Display movements
-    displayMovements(currentAccount.movements);
-    ///Display balance
-    calcDisplayBalance(currentAccount);
-    //Display Summary
-    calcDisplaySummary(currentAccount);
+    //update the UI
+    updateUI(currentAccount);
   }
 });
 
@@ -163,6 +168,16 @@ btnTransfer.addEventListener("click", function (e) {
   const receiverAcc = accounts.find(
     (acc) => acc.userName === inputTransferTo.value
   );
-  if (amount > 0) {
+  inputTransferAmount.value = inputTransferTo.value = "";
+  if (
+    amount > 0 &&
+    currentAccount.balance >= amount &&
+    receiverAcc?.userName !== currentAccount.userName
+  ) {
+    //Doing the transfer
+    currentAccount.movements.push(-amount);
+    receiverAcc.movements.push(amount);
+    //update the UI
+    updateUI(currentAccount);
   }
 });
