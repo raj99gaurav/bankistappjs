@@ -77,19 +77,27 @@ const inputLoanAmount = document.querySelector(".form__input--loan-amount");
 const inputCloseUsername = document.querySelector(".form__input--user");
 const inputClosePin = document.querySelector(".form__input--pin");
 
-const displayMovements = function (movements, sort = false) {
+const displayMovements = function (acc, sort = false) {
   containerMovements.innerHTML = "";
   //.textContent = 0;
 
   //using slice to make copy of movements array as we dont want to change the orifinal array
 
-  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+  const movs = sort
+    ? acc.movements.slice().sort((a, b) => a - b)
+    : acc.movements;
 
   movs.forEach(function (mov, i) {
     const type = mov > 0 ? "deposit" : "withdrawal";
 
+    const date = new Date(acc.movementsDates[i]);
+    const day = `${date.getDate()}`.padStart(2, 0);
+    const month = `${date.getMonth() + 1}`.padStart(2, 0);
+    const year = date.getFullYear();
+    const displayDate = `${day}/${month}/${year}`;
     const html = `<div class="movements__row">
     <div class="movements__type movements__type--${type}">${i + 1} ${type}</div>
+    <div class="movements__date">${displayDate}</div>
     <div class="movements__value">${mov.toFixed(2)}€</div>
   </div>`;
 
@@ -146,7 +154,7 @@ createUserNames(accounts);
 
 const updateUI = function (acc) {
   //Display movements
-  displayMovements(acc.movements);
+  displayMovements(acc);
   ///Display balance
   calcDisplayBalance(acc);
   //Display Summary
@@ -259,6 +267,6 @@ let sorted = false;
 btnSort.addEventListener("click", function (e) {
   //sorting func
   e.preventDefault();
-  displayMovements(currentAccount.movements, !sorted);
+  displayMovements(currentAccount, !sorted);
   sorted = !sorted;
 });
