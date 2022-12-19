@@ -218,6 +218,10 @@ btnTransfer.addEventListener("click", function (e) {
     //Doing the transfer
     currentAccount.movements.push(-amount);
     receiverAcc.movements.push(amount);
+
+    //add transfer dates
+    currentAccount.movementsDates.push(new Date());
+    receiverAcc.movementsDates.push(new Date());
     //update the UI
     updateUI(currentAccount);
   }
