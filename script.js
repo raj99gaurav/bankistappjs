@@ -182,6 +182,10 @@ currentAccount = account1;
 updateUI(currentAccount);
 containerApp.style.opacity = 100;
 
+//experimenting with Intl api
+const now = new Date();
+labelDate.textContent = new Intl.DateTimeFormat("en-US").format(now);
+
 btnLogin.addEventListener("click", function (e) {
   e.preventDefault(); //prevent form from submitting
 
