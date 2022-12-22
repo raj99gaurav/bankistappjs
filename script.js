@@ -184,7 +184,15 @@ containerApp.style.opacity = 100;
 
 //experimenting with Intl api
 const now = new Date();
-labelDate.textContent = new Intl.DateTimeFormat("en-US").format(now);
+const options = {
+  hour: "numeric",
+  minute: "numeric",
+  day: "numeric",
+  month: "long", //numeric,2-digit
+  year: "numeric",
+  weekday: "long", //short,narrow
+};
+labelDate.textContent = new Intl.DateTimeFormat("en-US", options).format(now);
 
 btnLogin.addEventListener("click", function (e) {
   e.preventDefault(); //prevent form from submitting
