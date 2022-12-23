@@ -192,7 +192,7 @@ const startLogOutTimer = function () {
   //Set Time to 5 min
   let time = 300;
   //Call the timer every second
-  setInterval(function () {
+  const timer = setInterval(function () {
     const min = String(Math.trunc(time / 60)).padStart(2, 0);
     const sec = String(time % 60).padStart(2, 0);
 
@@ -203,15 +203,20 @@ const startLogOutTimer = function () {
     time--;
 
     //When timer hits 0 sec, stop timer and log out the user
+    if (time === 0) {
+      clearInterval(timer);
+      labelWelcome.textContent = `Log in to get started`;
+      containerApp.style.opacity = 0;
+    }
   }, 1000);
 };
 //Event Handlers
 let currentAccount;
 
-//Fake Always Logged in
-currentAccount = account1;
-updateUI(currentAccount);
-containerApp.style.opacity = 100;
+// Fake Always Logged in
+// currentAccount = account1;
+// updateUI(currentAccount);
+// containerApp.style.opacity = 100;
 
 btnLogin.addEventListener("click", function (e) {
   e.preventDefault(); //prevent form from submitting
