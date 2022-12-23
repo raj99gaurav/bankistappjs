@@ -211,9 +211,11 @@ const startLogOutTimer = function () {
   //Call the timer every second
   tick(); // calling function right away
   const timer = setInterval(tick, 1000);
+
+  return timer;
 };
 //Event Handlers
-let currentAccount;
+let currentAccount, timer;
 
 // Fake Always Logged in
 // currentAccount = account1;
@@ -265,7 +267,9 @@ btnLogin.addEventListener("click", function (e) {
     inputLoginUsername.value = inputLoginPin.value = "";
     inputLoginPin.blur();
 
-    startLogOutTimer();
+    //Timer
+    if (timer) clearInterval(timer);
+    timer = startLogOutTimer();
     //update the UI
     updateUI(currentAccount);
   }
