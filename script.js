@@ -193,8 +193,11 @@ const startLogOutTimer = function () {
   let time = 300;
   //Call the timer every second
   setInterval(function () {
+    const min = String(Math.trunc(time / 60)).padStart(2, 0);
+    const sec = String(time % 60).padStart(2, 0);
+
     //In each call,print the remaining time
-    labelTimer.textContent = time;
+    labelTimer.textContent = `${min} : ${sec}`;
 
     //Dec 1 sec
     time--;
