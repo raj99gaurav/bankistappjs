@@ -188,6 +188,20 @@ const updateUI = function (acc) {
   calcDisplaySummary(acc);
 };
 
+const startLogOutTimer = function () {
+  //Set Time to 5 min
+  let time = 300;
+  //Call the timer every second
+  setInterval(function () {
+    //In each call,print the remaining time
+    labelTimer.textContent = time;
+
+    //Dec 1 sec
+    time--;
+
+    //When timer hits 0 sec, stop timer and log out the user
+  }, 1000);
+};
 //Event Handlers
 let currentAccount;
 
@@ -240,6 +254,8 @@ btnLogin.addEventListener("click", function (e) {
     //clear input fields
     inputLoginUsername.value = inputLoginPin.value = "";
     inputLoginPin.blur();
+
+    startLogOutTimer();
     //update the UI
     updateUI(currentAccount);
   }
