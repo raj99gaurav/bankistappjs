@@ -298,6 +298,10 @@ btnTransfer.addEventListener("click", function (e) {
     receiverAcc.movementsDates.push(new Date().toISOString());
     //update the UI
     updateUI(currentAccount);
+
+    //Rest the timer
+    clearInterval(timer);
+    timer = startLogOutTimer();
   }
 });
 
@@ -319,6 +323,10 @@ btnLoan.addEventListener("click", function (e) {
 
       //Udate the UI
       updateUI(currentAccount);
+
+      //Rest the timer
+      clearInterval(timer);
+      timer = startLogOutTimer();
     }, 2500);
   }
   inputLoanAmount.value = "";
